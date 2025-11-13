@@ -1,4 +1,4 @@
-module Reg_File #(
+module Reg_File (
     input logic [4:0] AD1,
     input logic [4:0] AD2,
     input logic [4:0] AD3,
