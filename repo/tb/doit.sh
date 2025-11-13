@@ -38,6 +38,17 @@ for file in "${files[@]}"; do
         name="top"
     fi
 
+    # Automatically detect latest GoogleTest installation under Homebrew
+    GTEST_BASE=$(brew --prefix googletest 2>/dev/null)
+    if [ -z "$GTEST_BASE" ]; then
+        echo "${RED}Error: GoogleTest not found via Homebrew.${RESET}"
+        exit 1
+    fi
+    
+    # Construct include and lib paths dynamically
+    GTEST_INCLUDE="$GTEST_BASE/include"
+    GTEST_LIB="$GTEST_BASE/lib"
+
     # Translate Verilog -> C++ including testbench
     verilator   -Wall --trace \
                 -cc ${RTL_FOLDER}/${name}.sv \
@@ -45,8 +56,8 @@ for file in "${files[@]}"; do
                 -y ${RTL_FOLDER} \
                 --prefix "Vdut" \
                 -o Vdut \
-                -CFLAGS "-isystem /opt/homebrew/Cellar/googletest/1.15.2/include"\
-                -LDFLAGS "-L/opt/homebrew/Cellar/googletest/1.15.2/lib -lgtest -lgtest_main -lpthread" \
+                -CFLAGS "-std=c++17 -isystem ${GTEST_INCLUDE}" \
+                -LDFLAGS "-L${GTEST_LIB} -lgtest -lgtest_main -lpthread"
 
     # Build C++ project with automatically generated Makefile
     make -j -C obj_dir/ -f Vdut.mk
