@@ -1,10 +1,10 @@
-module Reg_File #(
+module Reg_File (
     input logic [4:0] AD1,
     input logic [4:0] AD2,
     input logic [4:0] AD3,
     input logic       WE3,
     input logic [31:0] WD3,
-    input logic clk,
+    input logic        clk,
 
     output logic [31:0] RD1,
     output logic [31:0] RD2,
