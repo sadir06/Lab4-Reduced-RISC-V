@@ -11,7 +11,7 @@ module imm_gen (
     assign imm_i = {{20{instr[31]}}, instr[31:20]};
 
     // B-type immediate (bne)
-    // imm[12|10:5|4:1|11|0], with bit 0 = 0
+    // {imm[12], imm[10:5], imm[4:1], imm[11], 1'b0}
     assign imm_b_raw = {
         instr[31],      // imm[12]
         instr[7],       // imm[11]

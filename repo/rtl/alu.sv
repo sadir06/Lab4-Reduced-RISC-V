@@ -3,14 +3,13 @@ module alu (
     input  logic [31:0] b,
     input  logic        ALUAdd,          // 1 -> a+b, 0 -> a-b (or compare)
     output logic [31:0] result,
-    output logic        not_equal        // (a != b)
+    output logic        EQ        // 1 when (a == b)
 );
     logic [31:0] sum, diff;
 
     assign sum  = a + b;
     assign diff = a - b;
-
-    assign not_equal = (a != b);
+    assign EQ = (a == b);
 
     always_comb begin
         if (ALUAdd)
