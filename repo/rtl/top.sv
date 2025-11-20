@@ -104,7 +104,7 @@ module top #(
         .AD3     (rd),
         .WE3     (RegWrite),
         .ALUSrc  (ALUSrc),
-        .ALUCtrl (ALUAdd),   // 1 = add, 0 = sub/compare
+        .ALUAdd (ALUAdd),   // 1 = add, 0 = sub/compare
         .ImmOp   (ImmOp),
         .EQ      (EQ),
         .a0      (a0)
@@ -124,4 +124,3 @@ module top #(
     assign pc_next = PCSrc ? branch_pc : inc_pc;
 
 endmodule
-
